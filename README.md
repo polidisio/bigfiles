@@ -5,7 +5,7 @@
 <h1 align="center">🔍 BigFiles</h1>
 
 <p align="center">
-  <strong>Buscador interactivo de archivos grandes para macOS</strong>
+  <strong>Interactive large file finder for macOS</strong>
 </p>
 
 <p align="center">
@@ -16,61 +16,57 @@
 
 ---
 
-## ✨ Características
+## ✨ Features
 
-- 🚀 **Rápido** - Escaneo asíncrono con tqdm
-- 🎨 **Salida Rich** - Tablas coloreadas con iconos
-- 📊 **Ordena** por tamaño, nombre o ruta
-- 🔍 **Filtros** - Tamaño mínimo personalizable
-- 📁 **Excluye** automáticamente carpetas como `node_modules`, `.git`, `Caches`
+- 🚀 **Fast** - Async scanning with progress indicator
+- 🎨 **Rich Output** - Colored tables with file icons
+- 📊 **Sort** by size, name, or path
+- 🔍 **Filters** - Customizable minimum size
+- 📁 **Auto-excludes** common folders like `node_modules`, `.git`, `Caches`
 
-## 📥 Instalación
+## 📥 Installation
 
-### Desde código fuente
+### From source
 
 ```bash
-# Clonar el repo
+# Clone the repo
 git clone https://github.com/polidisio/bigfiles.git
 cd bigfiles
 
-# Crear entorno virtual
-python3 -m venv venv
-source venv/bin/activate
+# Install dependencies
+pip install rich click
 
-# Instalar dependencias
-pip install -e .
-
-# Ejecutar
-bigfiles
+# Run
+python3 -m bigfiles.cli
 ```
 
-### Con pip
+### With pip
 
 ```bash
 pip install bigfiles
 ```
 
-## 🎮 Uso
+## 🎮 Usage
 
 ```bash
-# Escanea tu home con el mínimo por defecto (100MB)
+# Scan home directory with default minimum (100MB)
 bigfiles
 
-# Escanea un directorio específico
+# Scan specific directory
 bigfiles -d ~/Downloads
 bigfiles --dir /Applications
 
-# Cambiar tamaño mínimo
+# Change minimum size
 bigfiles -m 500        # > 500 MB
 bigfiles --min 1       # > 1 MB
 
-# Ordenar por nombre
+# Sort by name
 bigfiles -s name
 
-# Limitar resultados
+# Limit results
 bigfiles -l 20
 
-# Modo lista simple (sin formato)
+# Simple list mode (no formatting)
 bigfiles -L
 ```
 
@@ -78,53 +74,52 @@ bigfiles -L
 
 ```
 ┌─────────────────────────────────────────────┐
-│  🔍 BIGFILES - Buscador de archivos grandes │
+│  🔍 BIGFILES - Large File Finder            │
 ├─────────────────────────────────────────────┤
-│  Directorio: ~/                             │
-│  Mínimo: 100 MB                             │
+│  Directory: ~/                             │
+│  Minimum: 100 MB                           │
 ├─────────────────────────────────────────────┤
 │  1. 📱 Projects/CardSurvivor.xc   4.2 GB   │
-│  2. 🎬 Videos/vacaciones.mov      2.8 GB   │
-│  3. 📦 Parallels/win10.vm         1.5 GB   │
-│  4. 💿 Images/backup.dmg          890 MB  │
+│  2. 🎬 Videos/vacations.mov      2.8 GB   │
+│  3. 📦 Parallels/win10.vm         1.5 GB  │
+│  4. 💿 Images/backup.dmg          890 MB   │
 │  5. 🗄️  Databases/dump.sql         756 MB  │
 └─────────────────────────────────────────────┘
 ```
 
-## 🛠️ Requisitos
+## 🛠️ Requirements
 
 - Python 3.10+
-- macOS (或其他 Unix 系统)
+- macOS (or any Unix system)
 - rich >= 13.0.0
 - click >= 8.0.0
-- textual >= 0.50.0 (opcional)
 
 ## 📝 Roadmap
 
-- [ ] Modo TUI interactivo completo (navegación con flechas)
-- [ ] Eliminar archivos directamente desde la app
-- [ ] Historial de escaneos
-- [ ] Exportar a CSV/JSON
-- [ ] Soporte para Finder comments
+- [ ] Full interactive TUI mode (arrow navigation)
+- [ ] Delete files directly from the app
+- [ ] Scan history
+- [ ] Export to CSV/JSON
+- [ ] Finder comments support
 
-## 🤝 Contribuir
+## 🤝 Contributing
 
-1. Fork el repo
-2. Crea una rama (`git checkout -b feature/nueva-feature`)
-3. Commit tus cambios (`git commit -m 'Add nueva feature'`)
-4. Push a la rama (`git push origin feature/nueva-feature`)
-5. Abre un Pull Request
+1. Fork the repo
+2. Create a branch (`git checkout -b feature/new-feature`)
+3. Commit your changes (`git commit -m 'Add new feature'`)
+4. Push to the branch (`git push origin feature/new-feature`)
+5. Open a Pull Request
 
-## 📜 Licencia
+## 📜 License
 
-MIT License - ver archivo [LICENSE](LICENSE)
+MIT License - see [LICENSE](LICENSE)
 
-## 👤 Autor
+## 👤 Author
 
 **Jose M.** - [polidisio](https://github.com/polidisio)
 
 ---
 
 <p align="center">
-  Hecho con ❤️ y Python
+  Made with ❤️ and Python
 </p>
