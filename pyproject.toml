@@ -1,0 +1,28 @@
+[project]
+name = "bigfiles"
+version = "0.1.0"
+description = "Interactive CLI tool to find large files on your Mac"
+authors = [
+    {name = "Jose M.", email = "aspontes@saraiba.eu"}
+]
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+dependencies = [
+    "rich>=13.0.0",
+    "click>=8.0.0",
+]
+
+[project.scripts]
+bigfiles = "bigfiles.cli:run"
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["bigfiles*"]
+
+[tool.setuptools.package-dir]
+"" = "."
