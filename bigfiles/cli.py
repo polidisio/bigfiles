@@ -26,6 +26,14 @@ class FileInfo:
     size: int
     is_dir: bool
     modified: float
+    
+    @property
+    def name(self) -> str:
+        return Path(self.path).name
+    
+    @property
+    def extension(self) -> str:
+        return Path(self.path).suffix.lower()
 
 
 class BigFilesFinder:
