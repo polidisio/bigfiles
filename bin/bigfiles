@@ -11,5 +11,14 @@ MODULE_DIR="$SCRIPT_DIR/../bigfiles"
 # Add the module directory to PYTHONPATH
 export PYTHONPATH="$MODULE_DIR:$PYTHONPATH"
 
+# Use python3.11 if available, otherwise fall back to python3
+if command -v python3.11 &> /dev/null; then
+    PYTHON=python3.11
+elif command -v /opt/homebrew/bin/python3.11 &> /dev/null; then
+    PYTHON=/opt/homebrew/bin/python3.11
+else
+    PYTHON=python3
+fi
+
 # Run the CLI module
-exec python3 -m bigfiles.cli "$@"
+exec $PYTHON -m bigfiles.cli "$@"
