@@ -1,0 +1,6 @@
+#!/bin/bash
+# BigFiles - Find large files on your Mac
+# Wrapper script for the Python module
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/.."
+PYTHONPATH="$SCRIPT_DIR" python3 -m bigfiles.cli "$@"
