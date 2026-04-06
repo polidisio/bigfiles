@@ -20,13 +20,28 @@
 
 - 🚀 **Fast** - Async scanning with progress indicator
 - 🎨 **Rich Output** - Colored tables with file icons
-- 📊 **Sort** by size, name, or path
-- 🔍 **Filters** - Customizable minimum size
+- 📊 **Sort** by size, name, path, or modified date
+- 🔍 **Filters** - Size range, extensions, exclude patterns
 - 📁 **Auto-excludes** common folders like `node_modules`, `.git`, `Caches`
 
 ## 📥 Installation
 
-### From source
+### 🏠 Homebrew (Recommended for macOS)
+
+```bash
+# Add the tap
+brew tap polidisio/tap
+
+# Install BigFiles
+brew install bigfiles
+```
+
+To update:
+```bash
+brew upgrade bigfiles
+```
+
+### 📦 From Source
 
 ```bash
 # Clone the repo
@@ -40,7 +55,7 @@ pip install rich click
 python3 -m bigfiles.cli
 ```
 
-### With pip
+### 🐍 pip
 
 ```bash
 pip install bigfiles
@@ -49,74 +64,79 @@ pip install bigfiles
 ## 🎮 Usage
 
 ```bash
-# Scan home directory with default minimum (100MB)
+# Show help menu
 bigfiles
 
-# Scan specific directory
+# Scan your home directory (files > 100MB)
+bigfiles
+
+# Scan a specific directory
 bigfiles -d ~/Downloads
-bigfiles --dir /Applications
+bigfiles -d /Applications
 
-# Change minimum size
-bigfiles -m 500        # > 500 MB
-bigfiles --min 1       # > 1 MB
+# Files larger than 500MB
+bigfiles -m 500
 
-# Sort by name
-bigfiles -s name
+# Files between 100MB and 1GB
+bigfiles -m 100 -M 1000
 
-# Limit results
+# Only PDFs and ZIPs
+bigfiles -e pdf -e zip
+
+# Only videos
+bigfiles -e mp4 -e mov -e mkv
+
+# Sort by modified date
+bigfiles -s modified
+
+# Top 20 largest files
 bigfiles -l 20
 
-# Simple list mode (no formatting)
-bigfiles -L
+# Exclude specific paths
+bigfiles -x node_modules -x .git
+
+# Simple list output
+bigfiles -S -l 10
 ```
 
-## 📸 Screenshots
+## 📋 All Options
 
-```
-┌─────────────────────────────────────────────┐
-│  🔍 BIGFILES - Large File Finder            │
-├─────────────────────────────────────────────┤
-│  Directory: ~/                             │
-│  Minimum: 100 MB                           │
-├─────────────────────────────────────────────┤
-│  1. 📱 Projects/CardSurvivor.xc   4.2 GB   │
-│  2. 🎬 Videos/vacations.mov      2.8 GB   │
-│  3. 📦 Parallels/win10.vm         1.5 GB  │
-│  4. 💿 Images/backup.dmg          890 MB   │
-│  5. 🗄️  Databases/dump.sql         756 MB  │
-└─────────────────────────────────────────────┘
-```
+| Option | Description | Default |
+|--------|-------------|---------|
+| `-d, --dir` | Directory to scan | `~` |
+| `-m, --min` | Minimum size (MB) | `100` |
+| `-M, --max` | Maximum size (MB) | - |
+| `-e, --ext` | Filter by extension(s) | - |
+| `-x, --exclude` | Exclude paths containing pattern | - |
+| `-s, --sort` | Sort by: size, name, path, modified | `size` |
+| `-l, --limit` | Maximum results | `50` |
+| `-S, --simple` | Simple list output | `false` |
 
-## 🛠️ Requirements
+## 🔧 Requirements
 
+- macOS (or Linux)
 - Python 3.10+
-- macOS (or any Unix system)
-- rich >= 13.0.0
-- click >= 8.0.0
+- `rich` and `click` packages
 
-## 📝 Roadmap
+## 📦 Uninstall
 
-- [ ] Full interactive TUI mode (arrow navigation)
-- [ ] Delete files directly from the app
-- [ ] Scan history
-- [ ] Export to CSV/JSON
-- [ ] Finder comments support
+```bash
+# Homebrew uninstall
+brew uninstall bigfiles
+brew untap polidisio/tap
+
+# pip uninstall
+pip uninstall bigfiles
+```
 
 ## 🤝 Contributing
 
-1. Fork the repo
-2. Create a branch (`git checkout -b feature/new-feature`)
-3. Commit your changes (`git commit -m 'Add new feature'`)
-4. Push to the branch (`git push origin feature/new-feature`)
-5. Open a Pull Request
+Contributions welcome! Please open an issue or PR at:
+https://github.com/polidisio/bigfiles
 
 ## 📜 License
 
 MIT License - see [LICENSE](LICENSE)
-
-## 👤 Author
-
-**Jose M.** - [polidisio](https://github.com/polidisio)
 
 ---
 
