@@ -2,5 +2,14 @@
 # BigFiles - Find large files on your Mac
 # Wrapper script for the Python module
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/.."
-PYTHONPATH="$SCRIPT_DIR" python3 -m bigfiles.cli "$@"
+# Get the directory where this script is located
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# The Python module is in the parent directory's bigfiles subdirectory
+MODULE_DIR="$SCRIPT_DIR/../bigfiles"
+
+# Add the module directory to PYTHONPATH
+export PYTHONPATH="$MODULE_DIR:$PYTHONPATH"
+
+# Run the CLI module
+exec python3 -m bigfiles.cli "$@"
