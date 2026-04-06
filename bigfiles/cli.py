@@ -191,33 +191,42 @@ async def run_scan(directory: str, min_size: int, sort_by: str, limit: int):
 @click.command()
 @click.option(
     '--dir', '-d',
-    default='~',
+    default=None,
     help='Directorio a escanear (default: ~)'
 )
 @click.option(
     '--min', '-m',
-    default=100,
+    default=None,
+    type=int,
     help='Tamaño mínimo en MB (default: 100)'
 )
 @click.option(
     '--sort', '-s',
     type=click.Choice(['size', 'name', 'path'], case_sensitive=False),
-    default='size',
+    default=None,
     help='Ordenar por (default: size)'
 )
 @click.option(
     '--limit', '-l',
-    default=50,
+    default=None,
+    type=int,
     help='Número máximo de resultados (default: 50)'
 )
 @click.option(
     '--list', '-L',
     is_flag=True,
-    help='Modo lista simple (sin TUI interactivo)'
+    help='Modo lista simple (sin formato)'
 )
-def cli(dir: str, min: int, sort: str, limit: int, list: bool):
+@click.option(
+    '--help', '-h',
+    is_flag=True,
+    help='Mostrar esta ayuda'
+)
+def cli(dir: Optional[str], min: Optional[int], sort: Optional[str], limit: Optional[int], list: bool, help: bool):
     """
     🔍 BIGFILES - Busca archivos grandes en tu Mac
+    
+    Sin argumentos muestra esta ayuda. Usa argumentos para escanear.
     
     Ejemplos:
     
@@ -227,6 +236,47 @@ def cli(dir: str, min: int, sort: str, limit: int, list: bool):
         bigfiles -s name            # Ordena por nombre
         bigfiles -l 20              # Top 20
     """
+    # Show welcome/help if no arguments provided
+    if dir is None and min is None and sort is None and limit is None:
+        console.print(Panel.fit(
+            """[bold cyan]🔍 BIGFILES[/bold cyan] - Buscador de archivos grandes
+            
+            [yellow]USO:[/yellow]
+            
+            [white]bigfiles [-d DIR] [-m MIN] [-s SORT] [-l LIMIT]
+            
+            [yellow]OPCIONES:[/yellow]
+            
+            [dim]-d, --dir DIR[/dim]      Directorio a escanear (default: ~)
+            [dim]-m, --min MB[/dim]        Tamaño mínimo en MB (default: 100)
+            [dim]-s, --sort SORT[/dim]     Ordenar por: size, name, path (default: size)
+            [dim]-l, --limit N[/dim]        Número máximo de resultados (default: 50)
+            [dim]-L, --list[/dim]          Modo lista simple
+            [dim]-h, --help[/dim]           Mostrar esta ayuda
+            
+            [yellow]EJEMPLOS:[/yellow]
+            
+            [green]bigfiles[/green]                    Escanea home, > 100MB
+            [green]bigfiles -d ~/Descargas[/green]    Escanea Descargas
+            [green]bigfiles -m 500[/green]            Solo archivos > 500MB
+            [green]bigfiles -s name[/green]            Ordena por nombre
+            [green]bigfiles -l 20[/green]             Top 20 resultados""",
+            border_style="cyan",
+            box=box.DOUBLE
+        ))
+        console.print()
+        return
+    
+    # Use defaults for None values
+    if min is None:
+        min = 100
+    if sort is None:
+        sort = "size"
+    if limit is None:
+        limit = 50
+    if dir is None:
+        dir = "~"
+    
     directory = Path(dir).expanduser().resolve()
     
     if not directory.exists():
