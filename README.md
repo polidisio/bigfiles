@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/python-3.10+-blue.svg" alt="Python">
+  <img src="https://img.shields.io/badge/python-3.9+-blue.svg" alt="Python">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License">
   <img src="https://img.shields.io/badge/platform-macOS-lightgrey.svg" alt="Platform">
   <a href="https://github.com/polidisio/bigfiles-mac"><img src="https://img.shields.io/badge/macOS-App-blue.svg" alt="macOS App"></a>
@@ -22,10 +22,15 @@
 ## ✨ Features
 
 - 🚀 **Fast** - Async scanning with progress indicator
-- 🎨 **Rich Output** - Colored tables with file icons
-- 📊 **Sort** by size, name, path, or modified date
-- 🔍 **Filters** - Size range, extensions, exclude patterns
-- 📁 **Auto-excludes** common folders like `node_modules`, `.git`, `Caches`
+- 🎨 **Rich Output** - Colored tables with file icons and size bars
+- 📊 **Size Bars** - Visual proportion bars showing relative file sizes
+- 🔍 **Spotlight Filters** - Natural language filters like `type:video`, `larger:1GB`, `newer:30d`
+- 📁 **Categories** - Group files by type (Videos, Photos, Audio, etc.)
+- 🔔 **Notifications** - Get notified when scan completes
+- 🎯 **Quick Actions** - Open, Reveal in Finder, QuickLook
+- 💻 **Interactive TUI** - Full keyboard navigation (with `--interactive`)
+- 🖥️ **Dark/Light Mode** - Adapts to your terminal theme
+- 📤 **Export** - JSON or CSV output for further processing
 
 ## 📥 Installation
 
@@ -62,6 +67,12 @@ python3 -m bigfiles.cli
 
 ```bash
 pip install bigfiles
+```
+
+### 🎮 Interactive Mode (Optional)
+
+```bash
+pip install bigfiles[interactive]
 ```
 
 ## 🎮 Usage
@@ -102,6 +113,82 @@ bigfiles -x node_modules -x .git
 bigfiles -S -l 10
 ```
 
+## 🔍 Spotlight Filters
+
+Use natural language filters inspired by macOS Spotlight:
+
+```bash
+# Videos only
+bigfiles -F "type:video"
+
+# Files larger than 1GB
+bigfiles -F "larger:1GB"
+
+# Modified in last 30 days
+bigfiles -F "newer:30d"
+
+# Files containing 'backup'
+bigfiles -F "name:backup"
+
+# Combine filters
+bigfiles -F "type:video" -F "larger:500MB"
+```
+
+## 📤 Export
+
+```bash
+# Output as JSON
+bigfiles --output json
+
+# Output as CSV
+bigfiles --output csv
+
+# Export to file
+bigfiles --output json --export results.json
+
+# Export to file
+bigfiles --output csv --export results.csv
+```
+
+## 📁 Category Grouping
+
+```bash
+# Group files by category
+bigfiles --group
+
+# Shows totals like:
+# 📹 Videos (23 files, 45.2 GB)
+# 🖼️ Photos (156 files, 12.1 GB)
+# 📄 Documents (89 files, 3.2 GB)
+```
+
+## 🔔 Notifications
+
+```bash
+# Get notified when scan completes
+bigfiles --notify
+```
+
+## 🎯 Interactive TUI Mode
+
+```bash
+# Start interactive mode with keyboard navigation
+bigfiles --interactive
+```
+
+**Keyboard shortcuts (TUI):**
+- `↑/↓` or `j/k` - Navigate
+- `Enter` or `o` - Open file
+- `Space` - QuickLook preview
+- `r` - Reveal in Finder
+- `s` - Sort menu
+- `f` - Filter menu
+- `b` - Toggle size bars
+- `g` - Toggle category grouping
+- `n` - Toggle dark/light mode
+- `h` - Help
+- `q` - Quit
+
 ## 📋 All Options
 
 | Option | Description | Default |
@@ -114,11 +201,20 @@ bigfiles -S -l 10
 | `-s, --sort` | Sort by: size, name, path, modified | `size` |
 | `-l, --limit` | Maximum results | `50` |
 | `-S, --simple` | Simple list output | `false` |
+| `-i, --interactive` | Interactive TUI mode | `false` |
+| `--notify` | Send notification on completion | `false` |
+| `-o, --output` | Output format: json, csv | - |
+| `--export` | Export to file | - |
+| `--group` | Group by category | `false` |
+| `--no-bars` | Hide size bars | `false` |
+| `--dark` | Force dark mode | - |
+| `--light` | Force light mode | - |
+| `-F, --filter` | Spotlight-style filter | - |
 
 ## 🔧 Requirements
 
 - macOS (or Linux)
-- Python 3.10+
+- Python 3.9+
 - `rich` and `click` packages
 
 ## 📦 Uninstall
